@@ -7,6 +7,8 @@ import (
     "encoding/json"
 )
 
+const configFile string = "gomock.json"
+
 type ServerConfig struct {
 	Port      int    `json:"port"`
 	UrlPrefix string `json:"urlPrefix"`
@@ -41,7 +43,7 @@ type Config struct {
 }
 
 func ReadConfig() Config {
-    content, err := ioutil.ReadFile("gomock.json")
+    content, err := ioutil.ReadFile(configFile)
 
     if err != nil {
         log.Fatal(err)
