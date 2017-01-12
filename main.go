@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+    "encoding/json"
 )
 
 type ServerConfig struct {
@@ -28,27 +28,34 @@ type Response struct {
 }
 
 type Route struct {
-	Request  Request
-	Response Response
+	Request  Request  `json:"request"`
+	Response Response `json:"response"`
 }
 
 type Routes []Route
 
 type Config struct {
-	Server ServerConfig
-	Record RecordConfig
-	Routes Routes
+	Server ServerConfig `json:"server"`
+	Record RecordConfig `json:"record"`
+	Routes Routes       `json:"routes"`
+}
+
+func ReadConfig() Config {
+    content, err := ioutil.ReadFile("gomock.json")
+
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    var config Config
+
+    json.Unmarshal(content, &config)
+
+    return config
 }
 
 func main() {
-	configFileContent, err := ioutil.ReadFile("gomock.json")
+    var config Config = ReadConfig()
 
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var config Config
-	json.Unmarshal(configFileContent, config)
-
-	fmt.Print(config)
+    fmt.Printf("%s", config)
 }

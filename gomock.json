@@ -1,21 +1,22 @@
 {
-  "server": {
-    "port": 8080,
-    "urlPrefix": "/api"
-  },
-  "record": {
-    "saveTo": "/tmp/gomock",
-    "notifyConsole:": true
-  },
-  "routes": [
-    {
-      "request": {
-        "method": "GET",
-        "url": "/v1/hello"
-      },
-      "response": {
-        "status": 200,
-        "body": "Hello World!"
-      }
-  ]
+    "server":{
+        "port":8080,
+        "urlPrefix":"/v1/api"
+    },
+    "record":{
+        "saveTo":"./storage",
+        "notifyConsole":true
+    },
+    "routes":[
+        {
+            "request":{
+                "method":"GET",
+                "url":"hello"
+            },
+            "response":{
+                "status":"200",
+                "body":"{\"message\": \"World!\"}"
+            }
+        }
+    ]
 }
