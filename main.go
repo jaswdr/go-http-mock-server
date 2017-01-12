@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+  "io"
 	"io/ioutil"
 	"log"
-    "encoding/json"
+  "encoding/json"
+  "net/http"
 )
 
 const configFile string = "gomock.json"
@@ -42,7 +44,7 @@ type Config struct {
 	Routes Routes       `json:"routes"`
 }
 
-func ReadConfig() Config {
+func LoadConfig() Config {
     content, err := ioutil.ReadFile(configFile)
 
     if err != nil {
@@ -56,8 +58,21 @@ func ReadConfig() Config {
     return config
 }
 
-func main() {
-    var config Config = ReadConfig()
+type Server struct {
+  Config Config
+}
 
-    fmt.Printf("%s", config)
+func (c Server) Handler(w http.ResponseWriter, r *http.Request) {
+  io.WriteString(w, "hello world!\n")
+}
+
+func (c Server) Run() {
+  var bind = fmt.Sprintf(":%v", c.Config.Server.Port);
+  log.Fatal( http.ListenAndServe(bind, nil))
+}
+
+func main() {
+    var config Config = LoadConfig()
+    var server Server = Server{config}
+    server.Run()
 }
