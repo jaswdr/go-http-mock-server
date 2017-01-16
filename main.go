@@ -46,7 +46,7 @@ type Server struct {
 	Config Config
 }
 
-func (c Server) Handler(w http.ResponseWriter, r *http.Request) {
+func (c Server) Handle(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "hello world!\n")
 }
 
@@ -57,6 +57,7 @@ func (c Server) Run() {
         c.Config.Server.Port,
     )
     var bind = fmt.Sprintf("%v:%v", c.Config.Server.Address, c.Config.Server.Port)
+    http.HandleFunc("/", c.Handle)
     log.Fatal(http.ListenAndServe(bind, nil))
 }
 
