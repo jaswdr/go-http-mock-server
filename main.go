@@ -1,19 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-  "io"
+	"io"
 	"io/ioutil"
 	"log"
-  "encoding/json"
-  "net/http"
+	"net/http"
 )
 
-const configFile string = "gomock.json"
-
 type ServerConfig struct {
+	Address   string    `json:"address"`
 	Port      int    `json:"port"`
-	UrlPrefix string `json:"urlPrefix"`
 }
 
 type RecordConfig struct {
@@ -22,8 +20,8 @@ type RecordConfig struct {
 }
 
 type Request struct {
-	Method string `json:"method"`
 	Url    string `json:"url"`
+	Method string `json:"method"`
 }
 
 type Response struct {
@@ -44,35 +42,33 @@ type Config struct {
 	Routes Routes       `json:"routes"`
 }
 
-func LoadConfig() Config {
-    content, err := ioutil.ReadFile(configFile)
-
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    var config Config
-
-    json.Unmarshal(content, &config)
-
-    return config
-}
-
 type Server struct {
-  Config Config
+	Config Config
 }
 
 func (c Server) Handler(w http.ResponseWriter, r *http.Request) {
-  io.WriteString(w, "hello world!\n")
+	io.WriteString(w, "hello world!\n")
 }
 
 func (c Server) Run() {
-  var bind = fmt.Sprintf(":%v", c.Config.Server.Port);
-  log.Fatal( http.ListenAndServe(bind, nil))
+    fmt.Printf(
+        "Listening at address %v on port %v\n",
+        c.Config.Server.Address,
+        c.Config.Server.Port,
+    )
+    var bind = fmt.Sprintf("%v:%v", c.Config.Server.Address, c.Config.Server.Port)
+    log.Fatal(http.ListenAndServe(bind, nil))
 }
 
 func main() {
-    var config Config = LoadConfig()
-    var server Server = Server{config}
-    server.Run()
+	content, err := ioutil.ReadFile("gomock.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var config Config
+	json.Unmarshal(content, &config)
+
+	var server Server = Server{config}
+	server.Run()
 }
