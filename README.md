@@ -13,22 +13,22 @@ Create a ``gomock.json`` file like this:
 ```json
 {
   "server": {
-    "port": 8080,              # port bindded
-    "urlPrefix": "/api"        # prefixed path of all routes
+    "port": 8080,
+    "urlPrefix": "/api"
   },
   "record": {
-    "saveTo": "/tmp/gomock",   # location where to save recorded request's
-    "notifyConsole:": true     # indicate if print to stdout each time received a request
+    "saveTo": "/tmp/gomock",
+    "notifyConsole:": true
   },
   "routes": [
     {
       "request": {
-        "method": "GET",       # method to match for this route
-        "url": "/v1/hello"     # url to match for this route
+        "method": "GET",
+        "url": "/v1/hello"
       },
       "response": {
-        "status": 200,         # response status
-        "body": "Hello World!" # response body
+        "status": 200,
+        "body": "Hello World!"
       }
   ]
 }
