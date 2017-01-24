@@ -12,25 +12,24 @@ Getting start
 Create a ``gomock.json`` file like this:
 ```json
 {
-  "server": {
-    "port": 8080,
-    "urlPrefix": "/api"
-  },
-  "record": {
-    "saveTo": "/tmp/gomock",
-    "notifyConsole:": true
-  },
-  "routes": [
-    {
-      "request": {
-        "method": "GET",
-        "url": "/v1/hello"
-      },
-      "response": {
-        "status": 200,
-        "body": "Hello World!"
-      }
-  ]
+	"server": {
+		"port": 8080,
+		"urlPrefix": "/api"
+	},
+	"record": {
+		"saveTo": "/tmp/gomock",
+		"notifyConsole:": true
+	},
+	"routes": [{
+		"request": {
+			"method": "GET",
+			"url": "/v1/hello"
+		},
+		"response": {
+			"status": 200,
+			"body": "Hello World!"
+		}
+	}]
 }
 ```
 
