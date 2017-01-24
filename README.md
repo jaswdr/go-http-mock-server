@@ -20,16 +20,18 @@ Create a ``gomock.json`` file like this:
 		"saveTo": "/tmp/gomock",
 		"notifyConsole:": true
 	},
-	"routes": [{
-		"request": {
-			"method": "GET",
-			"url": "/v1/hello"
-		},
-		"response": {
-			"status": 200,
-			"body": "Hello World!"
+	"routes": [
+		{
+			"request": {
+				"method": "GET",
+				"url": "/v1/hello"
+			},
+			"response": {
+				"status": 200,
+				"body": "Hello World!"
+			}
 		}
-	}]
+	]
 }
 ```
 
