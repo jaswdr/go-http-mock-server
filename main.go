@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -25,7 +24,7 @@ type Request struct {
 }
 
 type Response struct {
-	Status string `json:"status"`
+	Status int `json:"status"`
 	Body   string `json:"body"`
 }
 
@@ -46,8 +45,23 @@ type Server struct {
 	Config Config
 }
 
+func (c Server) getResponse(r *http.Request) Response {
+    for _, route := range c.Config.Routes {
+        if (route.Request.Url == r.URL.Path) {
+            if (route.Request.Method == r.Method) {
+                return route.Response
+            }
+        }
+    }
+
+    return Response{http.StatusMethodNotAllowed, http.StatusText(http.StatusMethodNotAllowed)}
+}
+
 func (c Server) Handle(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "hello world!\n")
+    var response Response = c.getResponse(r)
+
+    w.WriteHeader(response.Status)
+    w.Write([]byte(response.Body))
 }
 
 func (c Server) Run() {
