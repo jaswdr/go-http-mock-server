@@ -1,54 +1,80 @@
 # GOlang mock server for testing
 > Mock your APIs in a really fast, robust and comprehensive way
 
-### Features:
- - Simple JSON file configuration
- - Powerful Request Matching
- - Record and Playback
-
 Getting start
 ---
 
 Create a ``gomock.json`` file like this:
 ```json
 {
-	"server": {
-		"port": 8080,
-		"urlPrefix": "/api"
-	},
-	"record": {
-		"saveTo": "/tmp/gomock",
-		"notifyConsole:": true
-	},
-	"routes": [
-		{
-			"request": {
-				"method": "GET",
-				"url": "/v1/hello"
-			},
-			"response": {
-				"status": 200,
-				"body": "Hello World!"
-			}
-		}
-	]
+    "server":{
+        "address":"0.0.0.0",
+        "port":8080
+    },
+    "routes":[
+        {
+            "request":{
+                "method":"GET",
+                "url":"/hello"
+            },
+            "response":{
+                "status":200,
+                "body":"{\"message\": \"World!\"}"
+            }
+        },
+        {
+            "request":{
+                "method":"GET",
+                "url":"/status/200"
+            },
+            "response":{
+                "status":200,
+                "body":"OK"
+            }
+        },
+        {
+            "request":{
+                "method":"GET",
+                "url":"/status/400"
+            },
+            "response":{
+                "status":400,
+                "body":"Bad Request"
+            }
+        },
+        {
+            "request":{
+                "method":"GET",
+                "url":"/status/404"
+            },
+            "response":{
+                "status":404,
+                "body":"Not Found"
+            }
+        },
+        {
+            "request":{
+                "method":"GET",
+                "url":"/status/500"
+            },
+            "response":{
+                "status":500,
+                "body":"Internal Server Error"
+            }
+        }
+    ]
 }
 ```
 
-Run ``gomock`` passing the file path as parameter:
+Run ``gomock``:
 ```shell
-$ gomock ./gomock.json
+$ gomock
 ```
 
 Try make a request:
 ```shell
-$ curl http://localhost:8080/api/v1/hello
-Hello World!
-```
-
-Try replay a request:
-```shell
-$ gomock --replay ./gomock.json
+$ curl http://localhost:8080/hello
+{message: "World!"}
 ```
 
 That's it! You rock!!!
