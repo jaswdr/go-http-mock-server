@@ -1,4 +1,4 @@
-# GOlang mock server for testing
+# Go http mock server
 > Mock your APIs in a really fast, robust and comprehensive way
 
 Getting start
