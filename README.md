@@ -21,46 +21,6 @@ Create a ``gomock.json`` file like this:
                 "status":200,
                 "body":"{\"message\": \"World!\"}"
             }
-        },
-        {
-            "request":{
-                "method":"GET",
-                "url":"/status/200"
-            },
-            "response":{
-                "status":200,
-                "body":"OK"
-            }
-        },
-        {
-            "request":{
-                "method":"GET",
-                "url":"/status/400"
-            },
-            "response":{
-                "status":400,
-                "body":"Bad Request"
-            }
-        },
-        {
-            "request":{
-                "method":"GET",
-                "url":"/status/404"
-            },
-            "response":{
-                "status":404,
-                "body":"Not Found"
-            }
-        },
-        {
-            "request":{
-                "method":"GET",
-                "url":"/status/500"
-            },
-            "response":{
-                "status":500,
-                "body":"Internal Server Error"
-            }
         }
     ]
 }
