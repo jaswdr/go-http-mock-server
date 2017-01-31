@@ -4,7 +4,7 @@
 Getting start
 ---
 
-Create a ``gomock.json`` file like this:
+Create a ``mock.json`` file like this:
 ```json
 {
     "server":{
@@ -28,7 +28,7 @@ Create a ``gomock.json`` file like this:
 
 Run ``gomock``:
 ```shell
-$ gomock
+$ gomock mock.json
 ```
 
 Try make a request:
