@@ -1,8 +1,10 @@
 # Go http mock server
 > Mock your APIs in a really fast, robust and comprehensive way
 
-Getting start
----
+## Install
+`go get github.com/jaschweder/go-http-mock-server`
+
+## Getting start
 
 Create a ``mock.json`` file like this:
 ```json
@@ -39,11 +41,12 @@ $ curl http://localhost:8080/hello
 
 That's it! You rock!!!
 
-How to contribute:
----
+## How to contribute:
 
 Issue report and PR's are welcome
 
-Author:
----
+## Author:
 Created by Jonathan A. Schweder <jonathanschweder@gmail.com>
+
+## License
+MIT
