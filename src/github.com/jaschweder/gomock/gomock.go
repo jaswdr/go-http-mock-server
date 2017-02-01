@@ -1,7 +1,6 @@
-package main
+package gomock
 
 import (
-    "os"
 	"log"
 	"fmt"
 	"io/ioutil"
@@ -70,8 +69,8 @@ func (c Server) Run() {
 	log.Fatal(http.ListenAndServe(bind, nil))
 }
 
-func main() {
-    content, err := ioutil.ReadFile(os.Args[1])
+func CreateHttpMockServer(file string) Server {
+    content, err := ioutil.ReadFile(file)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -79,6 +78,5 @@ func main() {
 	var config Config
 	json.Unmarshal(content, &config)
 
-	var server Server = Server{config}
-	server.Run()
+	return Server{config}
 }
